@@ -5,11 +5,10 @@ ENV LANG en_US.utf8
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 RUN apt-get -y upgrade
-RUN apt-get update && apt-get install -y apt-utils
+RUN apt-get update && apt-get install -y apt-utils openssh-server 
 RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
     libglib2.0-0 libxext6 libsm6 libxrender1 \
     git mercurial subversion 
-RUN apt-get update && apt-get install -y openssh-server
 RUN apt-get install -y htop screen nano curl git-core git-gui git-doc git
 RUN apt-get install -y build-essential module-assistant dkms
 COPY Anaconda3-2020.02-Linux-x86_64.sh /root/
@@ -28,11 +27,12 @@ RUN apt-get install -y curl grep sed dpkg && \
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
 
-RUN conda list anaconda 
 RUN conda update -n base -c defaults -y conda
 RUN conda config --add channels defaults
 RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
+
+RUN conda install python=3.6
 
 RUN conda install -c bioconda -y fastqc
 RUN conda install -c bioconda -y trimmomatic
@@ -47,7 +47,7 @@ RUN conda install -c bioconda -y krona
 RUN conda install -c bioconda -y megahit
 RUN conda install -c bioconda -y SPAdes
 RUN conda install -c bioconda -y spades
-RUN conda install -c bioconda -y quast
 RUN conda install -c bioconda -y mafft
+RUN conda install -c bioconda -y quast
 
 EXPOSE 22
