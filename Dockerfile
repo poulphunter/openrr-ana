@@ -11,7 +11,7 @@ RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificate
     git mercurial subversion 
 RUN apt-get install -y htop screen nano curl git-core git-gui git-doc git
 RUN apt-get install -y build-essential module-assistant dkms
-COPY Anaconda3-2020.02-Linux-x86_64.sh /root/
+RUN cd /root/ && curl -O -L "https://downloads.sourceforge.net/project/covfiles/Anaconda/Anaconda3-2020.02-Linux-x86_64.sh"
 RUN /bin/bash /root/Anaconda3-2020.02-Linux-x86_64.sh -b -p /opt/conda && rm /root/Anaconda3-2020.02-Linux-x86_64.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
