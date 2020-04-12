@@ -32,7 +32,7 @@ RUN cd /root/ && git clone https://github.com/amalthomas111/covid19.git
 RUN conda env create -f /root/covid19/covid19_condaenv.yml
 
 RUN curl -L -O https://www.megasoftware.net/releases/megax-cc_10.1.8-1_amd64.deb
-RUN apt install -y gconf-service gconf2-common libdbus-glib-1-2 libgconf-2-4
+RUN apt install -y gconf-service gconf2-common libdbus-glib-1-2 libgconf-2-4 libgtk2.0-0
 RUN sudo dpkg -i megax-cc_10.1.8-1_amd64.deb
 RUN rm megax-cc_10.1.8-1_amd64.deb
 
