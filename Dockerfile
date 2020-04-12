@@ -28,26 +28,12 @@ ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
 
 RUN conda update -n base -c defaults -y conda
-RUN conda config --add channels defaults
-RUN conda config --add channels bioconda
-RUN conda config --add channels conda-forge
+RUN cd /root/ && git clone https://github.com/amalthomas111/covid19.git
+RUN conda env create -f /root/covid19/covid19_condaenv.yml
 
-RUN conda install python=3.6
-
-RUN conda install -c bioconda -y fastqc
-RUN conda install -c bioconda -y trimmomatic
-RUN conda install -c bioconda -y samtools
-RUN conda install -c bioconda -y hisat2
-RUN conda install -c bioconda -y bedtools
-RUN conda install -c bioconda -y bcftools
-RUN conda install -c bioconda -y seqtk
-RUN conda install -c bioconda -y varscan
-RUN conda install -c bioconda -y kraken2
-RUN conda install -c bioconda -y krona
-RUN conda install -c bioconda -y megahit
-RUN conda install -c bioconda -y SPAdes
-RUN conda install -c bioconda -y spades
-RUN conda install -c bioconda -y mafft
-RUN conda install -c bioconda -y quast
+RUN curl -L -O https://www.megasoftware.net/releases/megax-cc_10.1.8-1_amd64.deb
+RUN apt install -y gconf-service gconf2-common libdbus-glib-1-2 libgconf-2-4
+RUN sudo dpkg -i megax-cc_10.1.8-1_amd64.deb
+RUN rm megax-cc_10.1.8-1_amd64.deb
 
 EXPOSE 22
